@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=x\ y
+comment0.target=SpaceShip(int,\ int)
+comment1.params=g
+comment1.target=void\ paintComponent(java.awt.Graphics)
+comment2.params=
+comment2.target=void\ move()
+comment3.params=k
+comment3.target=void\ moddx(int)
+comment4.params=
+comment4.target=int\ getXPos()
+numComments=5
