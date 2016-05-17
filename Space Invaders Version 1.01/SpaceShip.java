@@ -67,10 +67,10 @@ public class SpaceShip extends JComponent
         return x; // returns the instance field variable x of the SpaceShip Class
     }
 
-//     public int fire()
-//     { 
-//         Projectile p = new Projectile(a, b);
-//     }
-    
-    
+    public Projectile fire()
+    { 
+        Projectile p = new Projectile(x+25, y);
+        return p;
+    }
+
 }

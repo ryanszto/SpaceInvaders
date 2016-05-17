@@ -17,6 +17,7 @@ public class Field
     final int frHEIGHT = 700;
     JLabel lives;
     ArrayList<BlockComponent> blockList;
+    ArrayList<Projectile> projectileList;
     SpaceShip s;
 
     public Field()
@@ -30,6 +31,7 @@ public class Field
         lives = new JLabel("LIVES");// + number of lives
 
         blockList = new ArrayList<BlockComponent>();
+        projectileList = new ArrayList<Projectile>();
 
         s = new SpaceShip(frWIDTH, frHEIGHT); // constructs a new SpaceShip object 
         // with explicit parameter of the two final variables and assigns it to the newly declared object 
@@ -54,22 +56,22 @@ public class Field
             frame.add(blockList.get(i));
             frame.setVisible(true);
         }
-        
+
         ArrayList<Row> rows = new ArrayList<Row>();
-    
+
         for(int y = 0; y < 3; y++)
         {
-          rows.add(new Row(frWIDTH,50*y+100));
+            rows.add(new Row(frWIDTH,50*y+100));
         }
-    
+
         for(int loc = 0; loc < rows.size();loc++)
         {
-          ArrayList<Enemy> enemies = rows.get(loc).getRow();
-          for(int pos = 0; pos < enemies.size();pos++)
-          {
-            frame.add(enemies.get(pos));
-            frame.setVisible(true);
-          }
+            ArrayList<Enemy> enemies = rows.get(loc).getRow();
+            for(int pos = 0; pos < enemies.size();pos++)
+            {
+                frame.add(enemies.get(pos));
+                frame.setVisible(true);
+            }
         }
 
         //         class BlockListener implements ActionListener//inner class 
@@ -83,7 +85,7 @@ public class Field
         //             }
         //         }
         //         blockList.addActionListener(new BlockListener());//invokes the addActionListener method to add the action listener   
-        
+
         Timer r1 = new Timer(1000, rows.get(0));
         Timer r2 = new Timer(1000, rows.get(1));
         Timer r3 = new Timer(1000, rows.get(2));
@@ -104,20 +106,31 @@ public class Field
                     // Ball Component object b
                     case KeyEvent.VK_RIGHT: s.moddx(5); break;
                     //case KeyEvent.VK_UP: s.fire(); break;
+                    case KeyEvent.VK_UP:
+                    {
+                        Projectile p = s.fire();
+                        projectileList.add(p);
+                        //frame.add(p); 
+                        //frame.setVisible(true); 
+                        break;
+                    }
                 }
             }
+
             public void keyReleased(KeyEvent e) {}
+
             public void keyTyped(KeyEvent e) {}
         }
+        
 
         frame.addKeyListener(new SpeedListener()); // invokes the mutator method addKeyListener() with
         // explicit parameter of a newly constructed SpeedListener object on the JFrame object fr
         frame.add(s);
         frame.setVisible(true);
-        
+
         lives.setForeground(Color.RED);
         lives.setVerticalAlignment(SwingConstants.BOTTOM);
-        
+
         frame.add(lives);
         frame.setVisible(true);
     }  

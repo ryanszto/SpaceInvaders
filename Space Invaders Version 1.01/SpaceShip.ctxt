@@ -9,4 +9,6 @@ comment3.params=k
 comment3.target=void\ moddx(int)
 comment4.params=
 comment4.target=int\ getXPos()
-numComments=5
+comment5.params=
+comment5.target=Projectile\ fire()
+numComments=6

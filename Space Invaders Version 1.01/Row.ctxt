@@ -1,5 +1,5 @@
 #BlueJ class context
-comment0.params=frWidth\ yPos
+comment0.params=width\ y
 comment0.target=Row(int,\ int)
 comment1.params=
 comment1.target=java.util.ArrayList\ getRow()
