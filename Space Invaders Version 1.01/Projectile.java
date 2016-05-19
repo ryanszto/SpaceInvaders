@@ -5,22 +5,17 @@ import java.awt.Graphics2D;
 import java.awt.geom.*;
 import java.awt.Color;
 import java.awt.geom.Rectangle2D.Double;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class Projectile extends JComponent implements ActionListener
+public class Projectile extends JComponent 
 {
     private double x;
     private double y;
-    Timer t;
     boolean val;
     
     public Projectile(int x, int y)
     {
         this.x = x;
         this.y = y;
-        t = new Timer(10, this);
-        t.start();
         val = true;
     }
 
@@ -32,16 +27,11 @@ public class Projectile extends JComponent implements ActionListener
         g2.setColor(Color.GREEN);
         g2.fill(projectile);
     }
-
-    public void actionPerformed(ActionEvent e)
+    
+    public double getYPos()
     {
-        if(!val)
-        {
-          
-        }
-        this.moveUp();
-        repaint();
-    }    
+        return y;
+    }
 
     public void moveUp()
     {
@@ -53,6 +43,7 @@ public class Projectile extends JComponent implements ActionListener
         {
             outofBounds();
         }
+        repaint();
     }
     
     public boolean outofBounds()

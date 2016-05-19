@@ -10,15 +10,21 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.Timer;
 
-public class Field
+public class Field implements ActionListener
 {
     public static JFrame frame = new JFrame("WELCOME TO SPACE INVADERS");
     final int frWIDTH = 800; // declares a new final integer frWIDTH and assigns it a value of 1100
     final int frHEIGHT = 700;
     JLabel lives;
     ArrayList<BlockComponent> blockList;
-    ArrayList<Projectile> projectileList;
     SpaceShip s;
+    ArrayList<Projectile> projects;
+    int projectileCount;
+    ArrayList<Row> rows;
+    Timer r1; 
+    Timer r2;
+    Timer r3;
+    Timer projectTime;
 
     public Field()
     {
@@ -31,8 +37,13 @@ public class Field
         lives = new JLabel("LIVES");// + number of lives
 
         blockList = new ArrayList<BlockComponent>();
-        projectileList = new ArrayList<Projectile>();
+        
+        projects = new ArrayList<Projectile>();
 
+        rows = new ArrayList<Row>();
+        
+        projectTime = new Timer(10, this);
+        
         s = new SpaceShip(frWIDTH, frHEIGHT); // constructs a new SpaceShip object 
         // with explicit parameter of the two final variables and assigns it to the newly declared object 
         // reference s
@@ -56,8 +67,7 @@ public class Field
             frame.add(blockList.get(i));
             frame.setVisible(true);
         }
-
-        ArrayList<Row> rows = new ArrayList<Row>();
+        
 
         for(int y = 0; y < 3; y++)
         {
@@ -85,10 +95,9 @@ public class Field
         //             }
         //         }
         //         blockList.addActionListener(new BlockListener());//invokes the addActionListener method to add the action listener   
-
-        Timer r1 = new Timer(1000, rows.get(0));
-        Timer r2 = new Timer(1000, rows.get(1));
-        Timer r3 = new Timer(1000, rows.get(2));
+        r1 = new Timer(1000, rows.get(0));
+        r2 = new Timer(1000, rows.get(1));
+        r3 = new Timer(1000, rows.get(2));
         r1.start();
         r2.start();
         r3.start();
@@ -108,10 +117,15 @@ public class Field
                     //case KeyEvent.VK_UP: s.fire(); break;
                     case KeyEvent.VK_UP:
                     {
-                        Projectile p = s.fire();
-                        projectileList.add(p);
-                        //frame.add(p); 
-                        //frame.setVisible(true); 
+                        if(projectileCount>4)
+                        {
+                            
+                        }
+                        else
+                        {
+                          projects.add(new Projectile(s.getXPos()+25, s.getYPos()));
+                          projectileCount++;
+                        }
                         break;
                     }
                 }
@@ -122,6 +136,7 @@ public class Field
             public void keyTyped(KeyEvent e) {}
         }
         
+        projectTime.start();
 
         frame.addKeyListener(new SpeedListener()); // invokes the mutator method addKeyListener() with
         // explicit parameter of a newly constructed SpeedListener object on the JFrame object fr
@@ -134,5 +149,31 @@ public class Field
         frame.add(lives);
         frame.setVisible(true);
     }  
+    
+    public void actionPerformed(ActionEvent e)
+    {
+        for(int pos = 0; pos < projects.size(); pos++)
+        {
+            frame.add(projects.get(pos));
+            frame.setVisible(true);
+            if(projects.get(pos).getYPos()<-15)
+            {
+              projects.remove(pos);
+              projectileCount--;
+            }
+            else
+            {
+              projects.get(pos).moveUp();
+            }
+        }
+        
+        if(rows.get(2).getRow().get(0).posX() >= 530)
+        {
+          r1.stop();
+          r2.stop();
+          r3.stop();
+          projectTime.stop();
+        }
+    }
 }
 
