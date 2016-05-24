@@ -28,21 +28,19 @@ public class Projectile extends JComponent
         g2.fill(projectile);
     }
     
-    public double getYPos()
+    public double getPosY()
     {
         return y;
+    }
+    
+    public double getPosX()
+    {
+        return x;
     }
 
     public void moveUp()
     {
-        if(y>-15)
-        {
-            y=y-20;
-        }
-        else
-        {
-            outofBounds();
-        }
+        y=y-10;
         repaint();
     }
     

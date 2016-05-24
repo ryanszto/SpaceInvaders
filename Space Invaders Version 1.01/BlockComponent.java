@@ -23,4 +23,14 @@ public class BlockComponent extends JComponent
         g2.setColor(Color.GREEN);
         g2.fill(block);
     }
+    
+    public double getPosX()
+    {
+        return x;
+    }
+    
+    public double getPosY()
+    {
+        return y;
+    }
 }

@@ -156,23 +156,45 @@ public class Field implements ActionListener
         {
             frame.add(projects.get(pos));
             frame.setVisible(true);
-            if(projects.get(pos).getYPos()<-15)
+        }
+        
+        for(int check = 0; check < projects.size(); check++)
+        {
+            if(projects.get(check).getPosY()<-15)
             {
-              projects.remove(pos);
-              projectileCount--;
+                projects.remove(check);
+                projectileCount--;
+                check--;
             }
             else
             {
-              projects.get(pos).moveUp();
+                projects.get(check).moveUp();
             }
         }
-        
+            
+        for(int j = 0; j<projects.size(); j++)
+            {
+                for(int i = 0; i<blockList.size(); i++)
+                {
+                    double blockY = blockList.get(i).getPosY();
+                    double blockX = blockList.get(i).getPosX();
+                    double projY = projects.get(j).getPosY();
+                    double projX = projects.get(j).getPosX();
+                    System.out.println("blockY: "+blockY+" blockX: "+ blockX+ " projY: "+projY+" projX: "+projX);
+                    if((blockY<=projY && blockY+15>=projY) && (blockX<=projX && blockX+15>=projX))
+                    {
+                        blockList.remove(i);
+                        projects.remove(j);
+                    }
+                }
+            }
+
         if(rows.get(2).getRow().get(0).posX() >= 530)
         {
-          r1.stop();
-          r2.stop();
-          r3.stop();
-          projectTime.stop();
+            r1.stop();
+            r2.stop();
+            r3.stop();
+            projectTime.stop();
         }
     }
 }
